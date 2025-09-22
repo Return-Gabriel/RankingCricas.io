@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Turma do Cricas - Ranking NP1 2025</title>
+    <link
+      rel="icon"
+      type="image/png"
+      href="images/logocricas.png"
+      sizes="90x90"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+      <div class="nav-container">
+        <div class="nav-logo">
+          <img
+            src="images/logocricas.png"
+            alt="Turma do Cricas"
+            class="logo-img"
+          />
+          <span class="logo-text">Turminha do cricas</span>
+        </div>
+        <ul class="nav-menu" id="navMenu">
+          <li class="nav-item">
+            <a href="#home" class="nav-link active" data-section="home">
+              <i class="fas fa-home"></i>
+              <span>Início</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#ranking" class="nav-link" data-section="ranking">
+              <i class="fas fa-trophy"></i>
+              <span>Ranking</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#members" class="nav-link" data-section="members">
+              <i class="fas fa-users"></i>
+              <span>Membros</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#rules" class="nav-link" data-section="rules">
+              <i class="fas fa-gavel"></i>
+              <span>Regras</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#countdown" class="nav-link" data-section="countdown">
+              <i class="fas fa-clock"></i>
+              <span>Contagem</span>
+            </a>
+          </li>
+        </ul>
+        <div class="nav-toggle" id="navToggle">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Home Section -->
+      <section class="section active" id="home">
+        <div class="container">
+          <div class="hero-content">
+            <div class="hero-text">
+              <div class="hero-greeting">
+                <span class="greeting-text">Bem-vindos ao</span>
+              </div>
+              <h1 class="hero-name">
+                <span class="name-highlight">Bar do</span> Cricas
+              </h1>
+              <div class="hero-title">
+                <span class="title-prefix">&lt;</span>
+                <span class="typing-text" id="typingText"></span>
+                <span class="title-suffix">/&gt;</span>
+                <span class="cursor">|</span>
+              </div>
+              <p class="hero-description">
+                O evento mais aguardado do semestre! Descubra quem vai pagar as
+                bebidas da NP1 | NP2 e acompanhe o ranking oficial da Turma do
+                Cricas. Que os melhores (ou piores) ganhem!
+              </p>
+              <div class="hero-buttons">
+                <a
+                  href="#ranking"
+                  class="btn btn-primary"
+                  data-section="ranking"
+                >
+                  <i class="fas fa-trophy"></i>
+                  Ver Ranking
+                </a>
+                <a href="#rules" class="btn btn-secondary" data-section="rules">
+                  <i class="fas fa-gavel"></i>
+                  Regras do Jogo
+                </a>
+              </div>
+            </div>
+            <div class="hero-image">
+              <div class="image-container">
+                <div class="image-frame">
+                  <img
+                    src="images/logocricas.png"
+                    alt="Logo Cricas"
+                    class="profile-img"
+                  />
+                  <div class="image-overlay"></div>
+                </div>
+                <div class="floating-elements">
+                  <div class="floating-icon" style="--delay: 0s">
+                    <i class="fas fa-beer"></i>
+                  </div>
+                  <div class="floating-icon" style="--delay: 1s">
+                    <i class="fas fa-trophy"></i>
+                  </div>
+                  <div class="floating-icon" style="--delay: 2s">
+                    <i class="fas fa-graduation-cap"></i>
+                  </div>
+                  <div class="floating-icon" style="--delay: 3s">
+                    <i class="fas fa-users"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="scroll-indicator">
+            <div class="scroll-text">Scroll para explorar</div>
+            <div class="scroll-arrow">
+              <i class="fas fa-chevron-down"></i>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Ranking Section -->
+      <section class="section" id="ranking">
+        <div class="container">
+          <div class="section-header">
+            <h2 class="section-title">
+              <span class="title-number">01.</span>
+              Ranking NP1 - Quem Vai Pagar?
+            </h2>
+            <div class="section-line"></div>
+          </div>
+          <div class="ranking-content">
+            <div class="ranking-info">
+              <p class="ranking-description">
+                O ranking oficial dos 6 membros que pagarão as bebidas da NP1.
+                As posições serão definidas conforme as notas das provas!
+              </p>
+            </div>
+            <div class="ranking-grid" id="rankingGrid">
+              <!-- Pré-ranking de 6 pessoas -->
+              <div class="ranking-card">
+                <div class="rank-number">1º</div>
+                <div class="rank-member">
+                  <img src="images/Gabriel.jpg" alt="Gabriel o protagonista" />
+                  <span>Gabriel o protagonista</span>
+                </div>
+                <div class="rank-status">Aguardando notas...</div>
+              </div>
+              <div class="ranking-card">
+                <div class="rank-number">2º</div>
+                <div class="rank-member">
+                  <img src="images/Toninhu.jpg" alt="Toninhu Cabeçudo" />
+                  <span>Toninhu Cabeçudo</span>
+                </div>
+                <div class="rank-status">Aguardando notas...</div>
+              </div>
+              <div class="ranking-card">
+                <div class="rank-number">3º</div>
+                <div class="rank-member">
+                  <img src="images/Pedrinho.jpg" alt="Pedrinho (Não grita)" />
+                  <span>Pedrinho (Não grita)</span>
+                </div>
+                <div class="rank-status">Aguardando notas...</div>
+              </div>
+              <div class="ranking-card">
+                <div class="rank-number">4º</div>
+                <div class="rank-member">
+                  <img
+                    src="images/Petherson.jpg"
+                    alt="Petherson (Máximo Respeito pet)"
+                  />
+                  <span>Petherson (Máximo Respeito pet)</span>
+                </div>
+                <div class="rank-status">Aguardando notas...</div>
+              </div>
+              <div class="ranking-card">
+                <div class="rank-number">5º</div>
+                <div class="rank-member">
+                  <img
+                    src="images/Vinna.jpg"
+                    alt="Vinna (Vendedor da artwalker)"
+                  />
+                  <span>Vinna (Vendedor da artwalker)</span>
+                </div>
+                <div class="rank-status">Aguardando notas...</div>
+              </div>
+              <div class="ranking-card">
+                <div class="rank-number">6º</div>
+                <div class="rank-member">
+                  <img src="images/Wendell.jpg" alt="Wendell (...)" />
+                  <span>Wendell (...)</span>
+                </div>
+                <div class="rank-status">Aguardando notas...</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Members Section -->
+      <section class="section" id="members">
+        <div class="container">
+          <div class="section-header">
+            <h2 class="section-title">
+              <span class="title-number">02.</span>
+              Nossos Membros
+            </h2>
+            <div class="section-line"></div>
+          </div>
+          <div class="members-content">
+            <div class="carousel-container">
+              <div class="carousel" id="membersCarousel">
+                <div class="carousel-track" id="carouselTrack">
+                  <div class="member-card">
+                    <div class="member-image">
+                      <img
+                        src="images/Gabriel.jpg"
+                        alt="Gabriel o protagonista"
+                      />
+                    </div>
+                    <div class="member-info">
+                      <h3>Gabriel o protagonista</h3>
+                      <p>O cara que sempre se destaca</p>
+                    </div>
+                  </div>
+                  <div class="member-card">
+                    <div class="member-image">
+                      <img src="images/Toninhu.jpg" alt="Toninhu Cabeçudo" />
+                    </div>
+                    <div class="member-info">
+                      <h3>Toninhu Cabeçudo</h3>
+                      <p>Cabeça grande, coração maior</p>
+                    </div>
+                  </div>
+                  <div class="member-card">
+                    <div class="member-image">
+                      <img
+                        src="images/Pedrinho.jpg"
+                        alt="Pedrinho (Não grita)"
+                      />
+                    </div>
+                    <div class="member-info">
+                      <h3>Pedrinho (Não grita)</h3>
+                      <p>O mais tranquilo da turma</p>
+                    </div>
+                  </div>
+                  <div class="member-card">
+                    <div class="member-image">
+                      <img
+                        src="images/Petherson.jpg"
+                        alt="Petherson (Máximo Respeito pet)"
+                      />
+                    </div>
+                    <div class="member-info">
+                      <h3>Petherson (Máximo Respeito pet)</h3>
+                      <p>Respeito total sempre</p>
+                    </div>
+                  </div>
+                  <div class="member-card">
+                    <div class="member-image">
+                      <img
+                        src="images/Vinna.jpg"
+                        alt="Vinna (Vendedor da artwalker)"
+                      />
+                    </div>
+                    <div class="member-info">
+                      <h3>Vinna (Vendedor da artwalker)</h3>
+                      <p>Sempre fechando negócio</p>
+                    </div>
+                  </div>
+                  <div class="member-card">
+                    <div class="member-image">
+                      <img src="images/Wendell.jpg" alt="Wendell (...)" />
+                    </div>
+                    <div class="member-info">
+                      <h3>Wendell (...)</h3>
+                      <p>Reticências que dizem tudo</p>
+                    </div>
+                  </div>
+                  <div class="member-card">
+                    <div class="member-image">
+                      <img
+                        src="images/Andrade.jpg"
+                        alt="Andrade (Futuro uber)"
+                      />
+                    </div>
+                    <div class="member-info">
+                      <h3>Andrade (Futuro uber)</h3>
+                      <p>Sempre pronto para a corrida</p>
+                    </div>
+                  </div>
+                  <div class="member-card">
+                    <div class="member-image">
+                      <img src="images/Gustavo.jpg" alt="Apenas o gustavo" />
+                    </div>
+                    <div class="member-info">
+                      <h3>Apenas o gustavo</h3>
+                      <p>Simples assim</p>
+                    </div>
+                  </div>
+                  <div class="member-card">
+                    <div class="member-image">
+                      <img
+                        src="images/Jonathan.jpg"
+                        alt="jonathan (o pai de menina)"
+                      />
+                    </div>
+                    <div class="member-info">
+                      <h3>jonathan (o pai de menina)</h3>
+                      <p>Papai coruja da turma</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-controls">
+                <button class="carousel-btn prev" id="prevBtn">
+                  <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="carousel-btn next" id="nextBtn">
+                  <i class="fas fa-chevron-right"></i>
+                </button>
+              </div>
+              <div class="carousel-indicators" id="carouselIndicators">
+                <!-- Indicadores serão gerados dinamicamente -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Rules Section -->
+      <section class="section" id="rules">
+        <div class="container">
+          <div class="section-header">
+            <h2 class="section-title">
+              <span class="title-number">03.</span>
+              Regras do Jogo
+            </h2>
+            <div class="section-line"></div>
+          </div>
+          <div class="rules-content">
+            <div class="rules-grid">
+              <div class="rule-category">
+                <h3 class="category-title">
+                  <i class="fas fa-scroll"></i>
+                  Regras Principais
+                </h3>
+                <div class="rules-list">
+                  <div class="rule-item">
+                    <div class="rule-number">1️⃣</div>
+                    <div class="rule-text">
+                      <strong>Prova do Gilson:</strong> Quem tirar a maior nota
+                      paga uma caipirinha.
+                    </div>
+                  </div>
+                  <div class="rule-item">
+                    <div class="rule-number">2️⃣</div>
+                    <div class="rule-text">
+                      <strong>Prova do Mestre Takukunavara:</strong> Quem tirar
+                      a maior nota paga uma caipirinha.
+                    </div>
+                  </div>
+                  <div class="rule-item">
+                    <div class="rule-number">3️⃣</div>
+                    <div class="rule-text">
+                      <strong>Outras Matérias:</strong> Quem tirar as menores
+                      notas paga caipirinha. <br /><em
+                        >Matérias: PAULO, CRISTIANE, SALAME</em
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="rule-category">
+                <h3 class="category-title">
+                  <i class="fas fa-plus-circle"></i>
+                  Sub-regras
+                </h3>
+                <div class="rules-list">
+                  <div class="rule-item">
+                    <div class="rule-number">📌</div>
+                    <div class="rule-text">
+                      Para todas as provas, quem tirar a
+                      <strong>segunda menor</strong> ou
+                      <strong>segunda maior</strong> nota ajudará na compra do
+                      Rosh no Bar do Cricas.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="rule-category">
+                <h3 class="category-title">
+                  <i class="fas fa-exclamation-triangle"></i>
+                  Aviso Importante
+                </h3>
+                <div class="rules-list">
+                  <div class="rule-item important">
+                    <div class="rule-text">
+                      <strong
+                        >Favor quem não desejar participar avise antes,</strong
+                      >
+                      para evitar ficar com frescura no cu e chegar no dia não
+                      querer pagar porque tá duro. <br /><br />
+                      <em
+                        >A Organização agradece pelo apoio e colaboração dos
+                        membros!</em
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Countdown Section -->
+      <section class="section" id="countdown">
+        <div class="container">
+          <div class="section-header">
+            <h2 class="section-title">
+              <span class="title-number">04.</span>
+              Contagem Regressiva NP2
+            </h2>
+            <div class="section-line"></div>
+          </div>
+          <div class="countdown-content">
+            <div class="countdown-info">
+              <p class="countdown-description">
+                Faltam poucos dias para a NP2! Prepare-se para mais uma rodada
+                de apostas e diversão.
+              </p>
+            </div>
+            <div class="countdown-timer" id="countdownTimer">
+              <div class="time-unit">
+                <div class="time-value" id="days">00</div>
+                <div class="time-label">Dias</div>
+              </div>
+              <div class="time-separator">:</div>
+              <div class="time-unit">
+                <div class="time-value" id="hours">00</div>
+                <div class="time-label">Horas</div>
+              </div>
+              <div class="time-separator">:</div>
+              <div class="time-unit">
+                <div class="time-value" id="minutes">00</div>
+                <div class="time-label">Minutos</div>
+              </div>
+              <div class="time-separator">:</div>
+              <div class="time-unit">
+                <div class="time-value" id="seconds">00</div>
+                <div class="time-label">Segundos</div>
+              </div>
+            </div>
+            <div class="countdown-message">
+              <p>A NP2 acontecerá na segunda quinzena de novembro de 2025</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <p>
+            &copy; 2025 Sevla Tech - GS
+            <i class="fas fa-heart"></i>.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script src="main.js"></script>
+  </body>
+</html>
