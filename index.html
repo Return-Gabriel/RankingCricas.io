@@ -4,12 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Turma do Cricas - Ranking NP1 2025</title>
-    <link
-      rel="icon"
-      type="image/png"
-      href="logocricas.png"
-      sizes="90x90"
-    />
+    <link rel="icon" type="image/png" href="logocricas.png" sizes="90x90" />
     <link rel="stylesheet" href="style.css" />
     <link
       rel="stylesheet"
@@ -21,15 +16,188 @@
     />
   </head>
   <body>
+    <!-- Popup de Datas Importantes -->
+    <div class="popup-overlay" id="datesPopup">
+      <div class="popup-content">
+        <div class="popup-header">
+          <h2><i class="fas fa-calendar-alt"></i> CURSOS TECNOLÓGICOS</h2>
+          <button class="popup-close" onclick="closeDatesPopup()">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="popup-body">
+          <p class="popup-greeting">Prezado(a) Bebados(a),</p>
+          <p class="popup-subtitle">Fique atento às seguintes datas:</p>
+
+          <div class="dates-list">
+            <div class="date-item">
+              <div class="date-number">13/11/2025</div>
+              <div class="date-description">
+                Data-limite para a entrega ou postagem dos trabalhos
+                acompanhados das fichas de registro das Atividades Acadêmicas
+                (AC, EC e Extensão) e resolução de exercícios (ED) no sistema
+                acadêmico, pelos alunos.
+              </div>
+            </div>
+
+            <div class="date-item">
+              <div class="date-number">14/11/2025</div>
+              <div class="date-description">
+                Data-limite para a entrega ou postagem do PIM, pelos alunos.
+              </div>
+            </div>
+
+            <div class="date-item">
+              <div class="date-number">17/11/2025</div>
+              <div class="date-description">
+                Prazo máximo para solicitação de Prova Substitutiva (após essa
+                data, as Secretarias Setoriais e On-line não mais aceitarão
+                solicitações de Subs.).
+              </div>
+            </div>
+
+            <div class="date-item">
+              <div class="date-number">26/11 a 02/12/2025</div>
+              <div class="date-description">Apresentação do PIM.</div>
+            </div>
+
+            <div class="date-item">
+              <div class="date-number">13/12/2025</div>
+              <div class="date-description">
+                Prazo máximo para solicitação de revisão de faltas.
+              </div>
+            </div>
+
+            <div class="date-item">
+              <div class="date-number">15 a 20/12/2025</div>
+              <div class="date-description">
+                Período de revisão de notas e faltas e entrega de provas, pelos
+                professores, aos alunos (exceto Exames).
+              </div>
+            </div>
+
+            <div class="date-item">
+              <div class="date-number">22/12/2025</div>
+              <div class="date-description">Término do semestre letivo.</div>
+            </div>
+          </div>
+        </div>
+        <div class="popup-footer">
+          <button class="btn btn-primary" onclick="closeDatesPopup()">
+            <i class="fas fa-check"></i> Entendi
+          </button>
+          <button class="btn btn-secondary" onclick="openCalculatorPopup()">
+            <i class="fas fa-calculator"></i> Calculadora de Notas
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Popup da Calculadora de Notas -->
+    <div class="popup-overlay" id="calculatorPopup">
+      <div class="popup-content calculator-popup">
+        <div class="popup-header">
+          <h2><i class="fas fa-calculator"></i> Calculadora de Média</h2>
+          <button class="popup-close" onclick="closeCalculatorPopup()">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="popup-body">
+          <p class="calculator-intro">
+            Bota suas nota ai tonto, caso não saiba alguma ou não tenha acesso a
+            ela ainda, marque a opção "sou betinha" e lhe exibiremos quanto de
+            nota você precisa para atingir a média 7!
+          </p>
+
+          <div class="calculator-form">
+            <div class="grade-input-group">
+              <label for="np1">NP1:</label>
+              <input
+                type="number"
+                id="np1"
+                min="0"
+                max="10"
+                step="0.1"
+                placeholder="0.0"
+              />
+              <label class="checkbox-container">
+                <input type="checkbox" id="np1Unknown" />
+                <span class="checkmark"></span>
+                sou betinha
+              </label>
+            </div>
+
+            <div class="grade-input-group">
+              <label for="np2">NP2:</label>
+              <input
+                type="number"
+                id="np2"
+                min="0"
+                max="10"
+                step="0.1"
+                placeholder="0.0"
+              />
+              <label class="checkbox-container">
+                <input type="checkbox" id="np2Unknown" />
+                <span class="checkmark"></span>
+                sou betinha
+              </label>
+            </div>
+
+            <div class="grade-input-group">
+              <label for="pim">PIM:</label>
+              <input
+                type="number"
+                id="pim"
+                min="0"
+                max="10"
+                step="0.1"
+                placeholder="0.0"
+              />
+              <label class="checkbox-container">
+                <input type="checkbox" id="pimUnknown" />
+                <span class="checkmark"></span>
+                sou betinha
+              </label>
+            </div>
+
+            <button
+              class="btn btn-primary calculate-btn"
+              onclick="calculateGrade()"
+            >
+              <i class="fas fa-calculator"></i> Calcular Média
+            </button>
+          </div>
+
+          <div
+            class="result-container"
+            id="resultContainer"
+            style="display: none"
+          >
+            <div class="result-header">
+              <h3>Resultado:</h3>
+            </div>
+            <div class="result-content" id="resultContent">
+              <!-- Resultado será inserido aqui -->
+            </div>
+          </div>
+        </div>
+        <div class="popup-footer">
+          <button class="btn btn-secondary" onclick="resetCalculator()">
+            <i class="fas fa-redo"></i> Limpar
+          </button>
+          <button class="btn btn-primary" onclick="closeCalculatorPopup()">
+            <i class="fas fa-times"></i> Fechar
+          </button>
+        </div>
+      </div>
+    </div>
+
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
       <div class="nav-container">
         <div class="nav-logo">
-          <img
-            src="logocricas.png"
-            alt="Turma do Cricas"
-            class="logo-img"
-          />
+          <img src="logocricas.png" alt="Turma do Cricas" class="logo-img" />
           <span class="logo-text">Turminha do cricas</span>
         </div>
         <ul class="nav-menu" id="navMenu">
@@ -61,6 +229,18 @@
             <a href="#countdown" class="nav-link" data-section="countdown">
               <i class="fas fa-clock"></i>
               <span>Contagem</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#jobs" class="nav-link" data-section="jobs">
+              <i class="fas fa-briefcase"></i>
+              <span>Trabalhos</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link" onclick="openCalculatorPopup()">
+              <i class="fas fa-calculator"></i>
+              <span>Calculadora</span>
             </a>
           </li>
         </ul>
@@ -170,54 +350,73 @@
                 <div class="rank-number">1º</div>
                 <div class="rank-member">
                   <img src="tONINHOcRICAS.jpeg" alt="Toninhu Cabeçudo" />
-                  <span>Toninhu Cabeçudo</span>
+                  <span>GERENC DE PROJ.SOFTW</span>
                 </div>
-                <div class="rank-status"> 6,0</div>
+                <div class="rank-status">6,0</div>
               </div>
               <div class="ranking-card">
                 <div class="rank-number">2º</div>
                 <div class="rank-member">
                   <img src="Petherson.jpg" alt="(Máximo ResPET)" />
-                  <span>Peth (Máximo Respeito pet)</span>
+                  <span>GERENC DE PROJ.SOFTW</span>
                 </div>
                 <div class="rank-status">6,0</div>
               </div>
               <div class="ranking-card">
                 <div class="rank-number">3º</div>
                 <div class="rank-member">
-                  <img src="" alt="AGUARDANDO NOTA" />
-                  <span>AGUARDANDO NOTA</span>
+                  <img src="Gabriel.jpg" alt="Gabriel" />
+                  <span>PROJ SIST ORI. OBJ</span>
                 </div>
-                <div class="rank-status">Aguardando notas...</div>
+                <div class="rank-status">7,5</div>
               </div>
               <div class="ranking-card">
                 <div class="rank-number">4º</div>
                 <div class="rank-member">
-                  <img src=""
-                    alt="AGUARDANDO NOTA"
-                  />
-                  <span>AGUARDANDO NOTA</span>
+                  <img src="Pedrinho.jpg" alt="7,0" />
+                  <span>PROJ SIST ORI. OBJ</span>
                 </div>
-                <div class="rank-status">Aguardando notas...</div>
+                <div class="rank-status">7,00</div>
               </div>
               <div class="ranking-card">
                 <div class="rank-number">5º</div>
                 <div class="rank-member">
-                  <img
-                    src=""
-                    alt="AGUARDANDO NOTA"
-                  />
-                  <span></span>
+                  <img src="Gustavo.jpg" alt="8,0" />
+                  <span>PROG ORIENT OBJ</span>
                 </div>
-                <div class="rank-status">Aguardando notas...</div>
+                <div class="rank-status">8,0</div>
               </div>
               <div class="ranking-card">
                 <div class="rank-number">6º</div>
                 <div class="rank-member">
-                  <img src="" alt="AGUARDANDO NOTA" />
+                  <img src="Vinna.jpg" alt=" 8,0" />
+                  <span>PROG ORIENT OBJ</span>
+                </div>
+                <div class="rank-status">8,0</div>
+              </div>
+              <div class="ranking-card">
+                <div class="rank-number">7º</div>
+                <div class="rank-member">
+                  <img src="Wendell.jpg" alt=" 5,0" />
+                  <span>PROG ORIENT OBJ</span>
+                </div>
+                <div class="rank-status">5,0</div>
+              </div>
+              <div class="ranking-card">
+                <div class="rank-number">8º</div>
+                <div class="rank-member">
+                  <img src="Jonathan.jpg" alt=" 8,0" />
                   <span></span>
                 </div>
-                <div class="rank-status">Aguardando notas...</div>
+                <div class="rank-status">aguardado NOTA...</div>
+              </div>
+              <div class="ranking-card">
+                <div class="rank-number">9º</div>
+                <div class="rank-member">
+                  <img src="Andrade.jpg" alt=" 10,00" />
+                  <span>AULA DE UBER</span>
+                </div>
+                <div class="rank-status">10,0</div>
               </div>
             </div>
           </div>
@@ -240,10 +439,7 @@
                 <div class="carousel-track" id="carouselTrack">
                   <div class="member-card">
                     <div class="member-image">
-                      <img
-                        src="Gabriel.jpg"
-                        alt="Gabriel o protagonista"
-                      />
+                      <img src="Gabriel.jpg" alt="Gabriel o protagonista" />
                     </div>
                     <div class="member-info">
                       <h3>Gabriel o protagonista</h3>
@@ -261,10 +457,7 @@
                   </div>
                   <div class="member-card">
                     <div class="member-image">
-                      <img
-                        src="Pedrinho.jpg"
-                        alt="Pedrinho (Não grita)"
-                      />
+                      <img src="Pedrinho.jpg" alt="Pedrinho (Não grita)" />
                     </div>
                     <div class="member-info">
                       <h3>Pedrinho (Não grita)</h3>
@@ -279,7 +472,7 @@
                       />
                     </div>
                     <div class="member-info">
-                      <h3>Petherson </h3>
+                      <h3>Petherson</h3>
                       <p>Máximo Respeito pet. Mais a J.....</p>
                     </div>
                   </div>
@@ -306,10 +499,7 @@
                   </div>
                   <div class="member-card">
                     <div class="member-image">
-                      <img
-                        src="Andrade.jpg"
-                        alt="Andrade (Futuro uber)"
-                      />
+                      <img src="Andrade.jpg" alt="Andrade (Futuro uber)" />
                     </div>
                     <div class="member-info">
                       <h3>Andrade (Futuro uber)</h3>
@@ -443,66 +633,136 @@
         </div>
       </section>
 
+      <!-- Jobs Section -->
+      <section class="section" id="jobs">
+        <div class="container">
+          <div class="section-header">
+            <h2 class="section-title">
+              <span class="title-number">04.</span>
+              Regras de Trabalho
+            </h2>
+            <div class="section-line"></div>
+          </div>
+          <div class="jobs-content">
+            <p class="jobs-description">
+              Parabéns pelo novo emprego! Mas antes de comemorar, vamos ver
+              quantas doses você deve! 😉
+            </p>
+            <div class="jobs-grid">
+              <div class="job-category">
+                <h3 class="category-title">
+                  <i class="fas fa-briefcase"></i>
+                  Trabalho Fora da Área de Estudo
+                </h3>
+                <div class="job-rules-list">
+                  <div class="job-rule-item">
+                    <div class="rule-number">🍺</div>
+                    <div class="rule-text">
+                      Se o trabalho for **fora da área** que estuda, você paga
+                      **uma dose**.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="job-category">
+                <h3 class="category-title">
+                  <i class="fas fa-laptop-code"></i>
+                  Trabalho na Área de T.I.
+                </h3>
+                <div class="job-rules-list">
+                  <div class="job-rule-item">
+                    <div class="rule-number">👶</div>
+                    <div class="rule-text">
+                      **Estagiário:** Paga **1 dose**.
+                    </div>
+                  </div>
+                  <div class="job-rule-item">
+                    <div class="rule-number">👨‍💻</div>
+                    <div class="rule-text">
+                      **Analista/Desenvolvedor Júnior:** Paga **2 doses**.
+                    </div>
+                  </div>
+                  <div class="job-rule-item">
+                    <div class="rule-number">🧙‍♂️</div>
+                    <div class="rule-text">
+                      **Analista/Desenvolvedor Pleno:** Paga **4 doses**.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="job-category">
+                <h3 class="category-title">
+                  <i class="fas fa-users"></i>
+                  Regras do Grupo
+                </h3>
+                <div class="job-rules-list">
+                  <div class="job-rule-item">
+                    <div class="rule-number">✅</div>
+                    <div class="rule-text">**Efetivado:** Paga **1 dose**.</div>
+                  </div>
+                  <div class="job-rule-item">
+                    <div class="rule-number">➕</div>
+                    <div class="rule-text">
+                      **Entrou no grupo:** Paga **1 dose**.
+                    </div>
+                  </div>
+                  <div class="job-rule-item">
+                    <div class="rule-number">⏳</div>
+                    <div class="rule-text">
+                      **Entrou no grupo durante o período de prova:** Deve pagar
+                      a dose seguindo as regras já existentes.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- Countdown Section -->
       <section class="section" id="countdown">
         <div class="container">
           <div class="section-header">
             <h2 class="section-title">
-              <span class="title-number">04.</span>
-              Contagem Regressiva NP2
+              <span class="title-number">05.</span>
+              Contagem Regressiva
             </h2>
             <div class="section-line"></div>
           </div>
           <div class="countdown-content">
-            <div class="countdown-info">
-              <p class="countdown-description">
-                Faltam poucos dias para a NP2! Prepare-se para mais uma rodada
-                de apostas e diversão.
-              </p>
+            <div class="countdown-message">
+              <p>A NP2 acontecerá no dia 15 de Novembro de 2025.</p>
             </div>
-            <div class="countdown-timer" id="countdownTimer">
+            <div class="countdown-timer">
               <div class="time-unit">
-                <div class="time-value" id="days">00</div>
+                <div class="time-number" id="days">00</div>
                 <div class="time-label">Dias</div>
               </div>
               <div class="time-separator">:</div>
               <div class="time-unit">
-                <div class="time-value" id="hours">00</div>
+                <div class="time-number" id="hours">00</div>
                 <div class="time-label">Horas</div>
               </div>
               <div class="time-separator">:</div>
               <div class="time-unit">
-                <div class="time-value" id="minutes">00</div>
+                <div class="time-number" id="minutes">00</div>
                 <div class="time-label">Minutos</div>
               </div>
               <div class="time-separator">:</div>
               <div class="time-unit">
-                <div class="time-value" id="seconds">00</div>
+                <div class="time-number" id="seconds">00</div>
                 <div class="time-label">Segundos</div>
+                Opa
               </div>
-            </div>
-            <div class="countdown-message">
-              <p>A NP2 acontecerá na segunda quinzena de novembro de 2025</p>
             </div>
           </div>
         </div>
       </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="container">
-        <div class="footer-content">
-          <p>
-            &copy; 2025 Sevla Tech - GS
-            <i class="fas fa-heart"></i>.
-          </p>
-        </div>
-      </div>
-    </footer>
-
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
     <script src="main.js"></script>
   </body>
 </html>
