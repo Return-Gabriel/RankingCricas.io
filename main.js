@@ -28,9 +28,241 @@ function initializeApp() {
   setupTypingAnimation();
   setupParticles();
   setupKeyboardNavigation();
+  setupPopups();
 
   // Show home section initially
   showSection("home");
+
+  // Show dates popup on page load
+  setTimeout(() => {
+    showDatesPopup();
+  }, 1000);
+}
+
+// ===== POPUP FUNCTIONS =====
+function setupPopups() {
+  // Setup checkbox functionality
+  setupCheckboxes();
+
+  // Close popups when clicking outside
+  document.addEventListener("click", function (e) {
+    if (e.target.classList.contains("popup-overlay")) {
+      closeDatesPopup();
+      closeCalculatorPopup();
+    }
+  });
+
+  // Close popups with ESC key
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") {
+      closeDatesPopup();
+      closeCalculatorPopup();
+    }
+  });
+}
+
+function setupCheckboxes() {
+  const checkboxes = ["np1Unknown", "np2Unknown", "pimUnknown"];
+  const inputs = ["np1", "np2", "pim"];
+
+  checkboxes.forEach((checkboxId, index) => {
+    const checkbox = document.getElementById(checkboxId);
+    const input = document.getElementById(inputs[index]);
+
+    if (checkbox && input) {
+      checkbox.addEventListener("change", function () {
+        if (this.checked) {
+          input.disabled = true;
+          input.value = "";
+          input.style.opacity = "0.5";
+        } else {
+          input.disabled = false;
+          input.style.opacity = "1";
+        }
+      });
+    }
+  });
+}
+
+function showDatesPopup() {
+  const popup = document.getElementById("datesPopup");
+  if (popup) {
+    popup.classList.add("active");
+  }
+}
+
+function closeDatesPopup() {
+  const popup = document.getElementById("datesPopup");
+  if (popup) {
+    popup.classList.remove("active");
+  }
+}
+
+function openCalculatorPopup() {
+  closeDatesPopup();
+  const popup = document.getElementById("calculatorPopup");
+  if (popup) {
+    popup.classList.add("active");
+  }
+}
+
+function closeCalculatorPopup() {
+  const popup = document.getElementById("calculatorPopup");
+  if (popup) {
+    popup.classList.remove("active");
+  }
+}
+
+function resetCalculator() {
+  // Reset all inputs
+  document.getElementById("np1").value = "";
+  document.getElementById("np2").value = "";
+  document.getElementById("pim").value = "";
+
+  // Reset all checkboxes
+  document.getElementById("np1Unknown").checked = false;
+  document.getElementById("np2Unknown").checked = false;
+  document.getElementById("pimUnknown").checked = false;
+
+  // Re-enable all inputs
+  const inputs = ["np1", "np2", "pim"];
+  inputs.forEach((inputId) => {
+    const input = document.getElementById(inputId);
+    input.disabled = false;
+    input.style.opacity = "1";
+  });
+
+  // Hide result
+  const resultContainer = document.getElementById("resultContainer");
+  if (resultContainer) {
+    resultContainer.style.display = "none";
+  }
+}
+
+function calculateGrade() {
+  const np1Input = document.getElementById("np1");
+  const np2Input = document.getElementById("np2");
+  const pimInput = document.getElementById("pim");
+
+  const np1Unknown = document.getElementById("np1Unknown").checked;
+  const np2Unknown = document.getElementById("np2Unknown").checked;
+  const pimUnknown = document.getElementById("pimUnknown").checked;
+
+  const np1 = np1Unknown ? null : parseFloat(np1Input.value) || 0;
+  const np2 = np2Unknown ? null : parseFloat(np2Input.value) || 0;
+  const pim = pimUnknown ? null : parseFloat(pimInput.value) || 0;
+
+  const resultContainer = document.getElementById("resultContainer");
+  const resultContent = document.getElementById("resultContent");
+
+  // Count how many grades are unknown
+  const unknownCount = [np1Unknown, np2Unknown, pimUnknown].filter(
+    Boolean
+  ).length;
+
+  if (unknownCount > 1) {
+    resultContent.innerHTML = `
+      <div class="result-message danger">
+        <p><strong>Opa, calma aí!</strong></p>
+        <p>Você marcou muitas opções "sou betinha". Preciso de pelo menos 2 notas para calcular!</p>
+      </div>
+    `;
+    resultContainer.style.display = "block";
+    return;
+  }
+
+  let result = "";
+
+  if (unknownCount === 0) {
+    // All grades are known
+    const ms = (np1 + np2 + pim) / 3;
+
+    if (ms >= 7.0) {
+      result = `
+        <div class="result-grade">
+          <div class="grade-value approved">${ms.toFixed(1)}</div>
+          <div class="grade-label">Média Semestral</div>
+        </div>
+        <div class="result-message success">
+          <p><strong>Parabéns, seu burro!</strong></p>
+          <p>Você passou direto! Mas não se anime muito não, porque você vai ter que pagar uma caipirinha de qualquer forma no final do semestre pra comemorar! 🍹</p>
+        </div>
+      `;
+    } else {
+      const examGradeNeeded = (10 - ms).toFixed(1);
+      result = `
+        <div class="result-grade">
+          <div class="grade-value exam">${ms.toFixed(1)}</div>
+          <div class="grade-label">Média Semestral</div>
+        </div>
+        <div class="result-message warning">
+          <p><strong>Eita, burro!</strong></p>
+          <p>Você ficou de exame! Mas pra comemorar que pelo menos não reprovou de primeira, você vai pagar uma dose no final do semestre! 🍺</p>
+          <div class="needed-grade">
+            <p>Nota necessária no exame:</p>
+            <div class="needed-grade-value">${examGradeNeeded}</div>
+          </div>
+        </div>
+      `;
+    }
+  } else if (unknownCount === 1) {
+    // One grade is unknown, calculate what's needed
+    let knownSum = 0;
+    let unknownType = "";
+
+    if (!np1Unknown) knownSum += np1;
+    else unknownType = "NP1";
+
+    if (!np2Unknown) knownSum += np2;
+    else unknownType = "NP2";
+
+    if (!pimUnknown) knownSum += pim;
+    else unknownType = "PIM";
+
+    const neededForSeven = (21 - knownSum).toFixed(1); // 7 * 3 = 21
+    const maxPossible = (knownSum + 10) / 3;
+
+    if (maxPossible < 7.0) {
+      result = `
+        <div class="result-message danger">
+          <p><strong>Rapaz, você se ferrou!</strong></p>
+          <p>Mesmo tirando 10 na ${unknownType}, você não consegue média 7. Já pode ir separando o dinheiro pra dose! 🍺</p>
+          <div class="needed-grade">
+            <p>Média máxima possível:</p>
+            <div class="needed-grade-value">${maxPossible.toFixed(1)}</div>
+          </div>
+        </div>
+      `;
+    } else if (neededForSeven > 10) {
+      result = `
+        <div class="result-message danger">
+          <p><strong>Impossível, meu chapa!</strong></p>
+          <p>Você precisaria tirar mais que 10 na ${unknownType} para conseguir média 7. Já pode ir comprando a bebida! 🍹</p>
+        </div>
+      `;
+    } else if (neededForSeven <= 0) {
+      result = `
+        <div class="result-message success">
+          <p><strong>Relaxa, burro!</strong></p>
+          <p>Você já tem média 7 garantida! Mas não esquece que vai ter que pagar uma caipirinha pra comemorar! 🍹</p>
+        </div>
+      `;
+    } else {
+      result = `
+        <div class="result-message warning">
+          <p><strong>Atenção, betinha!</strong></p>
+          <p>Você precisa tirar pelo menos <strong>${neededForSeven}</strong> na ${unknownType} para conseguir média 7 e não ficar de exame.</p>
+          <div class="needed-grade">
+            <p>Nota necessária na ${unknownType}:</p>
+            <div class="needed-grade-value">${neededForSeven}</div>
+          </div>
+        </div>
+      `;
+    }
+  }
+
+  resultContent.innerHTML = result;
+  resultContainer.style.display = "block";
 }
 
 // ===== NAVIGATION =====
@@ -46,7 +278,9 @@ function setupNavigation() {
     link.addEventListener("click", (e) => {
       e.preventDefault();
       const targetSection = link.getAttribute("data-section");
-      showSection(targetSection);
+      if (targetSection) {
+        showSection(targetSection);
+      }
 
       // Close mobile menu
       navMenu.classList.remove("active");
@@ -111,7 +345,9 @@ function showSection(sectionId) {
   });
 
   // Scroll to top of section
-  targetSection.scrollIntoView({ behavior: "smooth" });
+  if (targetSection) {
+    targetSection.scrollIntoView({ behavior: "smooth" });
+  }
 }
 
 // ===== CAROUSEL =====
@@ -232,10 +468,10 @@ function setupCountdown() {
 
     if (distance < 0) {
       // Se a data já passou, exibe zeros e uma mensagem de evento encerrado.
-      daysEl.textContent = "00";
-      hoursEl.textContent = "00";
-      minutesEl.textContent = "00";
-      secondsEl.textContent = "00";
+      if (daysEl) daysEl.textContent = "00";
+      if (hoursEl) hoursEl.textContent = "00";
+      if (minutesEl) minutesEl.textContent = "00";
+      if (secondsEl) secondsEl.textContent = "00";
       if (countdownMessageEl) {
         countdownMessageEl.textContent =
           "A NP2 já aconteceu! Prepare-se para a próxima.";
@@ -253,10 +489,10 @@ function setupCountdown() {
     const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
     // Atualiza o HTML com os valores formatados
-    daysEl.textContent = days.toString().padStart(2, "0");
-    hoursEl.textContent = hours.toString().padStart(2, "0");
-    minutesEl.textContent = minutes.toString().padStart(2, "0");
-    secondsEl.textContent = seconds.toString().padStart(2, "0");
+    if (daysEl) daysEl.textContent = days.toString().padStart(2, "0");
+    if (hoursEl) hoursEl.textContent = hours.toString().padStart(2, "0");
+    if (minutesEl) minutesEl.textContent = minutes.toString().padStart(2, "0");
+    if (secondsEl) secondsEl.textContent = seconds.toString().padStart(2, "0");
 
     // Atualiza a mensagem da contagem
     if (countdownMessageEl) {
@@ -428,7 +664,10 @@ function setupKeyboardNavigation() {
         showSection("rules");
         break;
       case "5":
-        showSection("countdown");
+        showSection("jobs"); // Updated for new section
+        break;
+      case "6":
+        showSection("countdown"); // Updated for new section
         break;
       case "ArrowLeft":
         if (document.getElementById("members").classList.contains("active")) {
@@ -443,9 +682,11 @@ function setupKeyboardNavigation() {
         }
         break;
       case "Escape":
-        // Close mobile menu
+        // Close mobile menu and popups
         navMenu.classList.remove("active");
         navToggle.classList.remove("active");
+        closeDatesPopup();
+        closeCalculatorPopup();
         break;
     }
   });
@@ -499,19 +740,10 @@ window.addEventListener("error", (e) => {
   console.error("JavaScript error:", e.error);
 });
 
-// ===== RESIZE HANDLER =====
-window.addEventListener(
-  "resize",
-  debounce(() => {
-    updateCarouselPosition();
-  }, 250)
-);
-
-// ===== VISIBILITY CHANGE =====
-document.addEventListener("visibilitychange", () => {
-  if (document.hidden) {
-    stopAutoSlide();
-  } else {
-    startAutoSlide();
-  }
-});
+// ===== GLOBAL FUNCTIONS FOR HTML ONCLICK =====
+// These functions need to be in global scope for HTML onclick attributes
+window.closeDatesPopup = closeDatesPopup;
+window.openCalculatorPopup = openCalculatorPopup;
+window.closeCalculatorPopup = closeCalculatorPopup;
+window.resetCalculator = resetCalculator;
+window.calculateGrade = calculateGrade;
